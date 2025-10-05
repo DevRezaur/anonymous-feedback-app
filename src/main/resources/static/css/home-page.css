@@ -38,8 +38,11 @@
 .posts .top-section {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid white;
 }
 
 .posts .top-section .name {
@@ -48,21 +51,21 @@
 }
 
 .posts .top-section .positive {
-    min-width: 75px;
+    width: 100px;
     text-align: center;
     background-color: #62b076;
     color: white;
-    padding: 5px;
-    border-radius: 2px;
+    padding: 2px;
+    border-radius: 20px;
 }
 
 .posts .top-section .negative {
-    min-width: 75px;
+    width: 100px;
     text-align: center;
     background-color: #fc5c7d;
     color: white;
-    padding: 5px;
-    border-radius: 2px;
+    padding: 2px;
+    border-radius: 20px;
 }
 
 .posts .mid-section .title {
@@ -86,4 +89,23 @@
 .posts .bottom-section a:hover {
     cursor: pointer;
     opacity: 0.8;
+}
+
+#pagination {
+    width: fit-content;
+    margin: 20px auto 40px auto;
+}
+
+#pagination a {
+    text-decoration: none;
+    color: #fc5c7d;
+}
+
+#pagination a:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+#pagination span {
+    margin: 0 5px;
 }

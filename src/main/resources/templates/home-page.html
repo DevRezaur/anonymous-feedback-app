@@ -16,51 +16,34 @@
     <!-- Main Container -->
     <div class="container main-container">
         <!-- Search Section -->
-        <form th:action="@{/search}" method="post" id="search-form">
+        <form th:action="@{/search}" method="get" id="search-form">
             <label for="search-input" class="hidden"></label>
-            <input type="text" id="search-input" name="searchQuery" placeholder="Search By Teacher Name" required/>
+            <input type="text" id="search-input" name="searchQuery" th:value="${searchQuery}"
+                   placeholder="Search By Teacher Name" required/>
             <button type="submit">Search</button>
         </form>
 
         <!-- Posts Section -->
-        <div class="posts">
+        <div th:each="feedback : ${feedbacks}" class="posts">
             <div class="top-section">
-                <p class="name">Abu Bakar Siddik</p>
-                <p class="positive">Positive</p>
+                <p th:text="${feedback.feedbackFor}" class="name"></p>
+                <p th:if="${feedback.isPositive}" class="positive">Positive</p>
+                <p th:if="${!feedback.isPositive}" class="negative">Negative</p>
             </div>
             <div class="mid-section">
-                <p class="title">Really amazing teacher with amazing personality and teaching style. Highly recommended
-                    teacher.
-                </p>
-                <p class="desc">Mr. Abu Bakar Siddik is a knowledgeable and patient instructor. He explains complex
-                    topics clearly and ensures that everyone in the class understands the material. His classes are
-                    well-structured, though sometimes the pace can feel a bit fast. Overall, a very supportive and
-                    dedicated teacher who genuinely cares about his students’ learning.
-                </p>
+                <p th:text="${feedback.title}" class="title"></p>
+                <p th:text="${feedback.message}" class="desc"></p>
             </div>
             <div class="bottom-section">
-                <a href="/">See Full Review</a>
+                <a th:href="@{'/feedback/' + ${feedback.feedbackId}}">See Full Review</a>
             </div>
         </div>
 
-        <div class="posts">
-            <div class="top-section">
-                <p class="name">Abu Bakar Siddik</p>
-                <p class="positive">Positive</p>
-            </div>
-            <div class="mid-section">
-                <p class="title">Really amazing teacher with amazing personality and teaching style. Highly recommended
-                    teacher.
-                </p>
-                <p class="desc">Mr. Abu Bakar Siddik is a knowledgeable and patient instructor. He explains complex
-                    topics clearly and ensures that everyone in the class understands the material. His classes are
-                    well-structured, though sometimes the pace can feel a bit fast. Overall, a very supportive and
-                    dedicated teacher who genuinely cares about his students’ learning.
-                </p>
-            </div>
-            <div class="bottom-section">
-                <a href="/">See Full Review</a>
-            </div>
+        <!-- Pagination Section -->
+        <div th:if="${searchQuery == null}" id="pagination">
+            <a th:if="${currentPage > 0}" th:href="@{'/home?page=' + ${currentPage - 1}}">Previous</a>
+            <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}"></span>
+            <a th:if="${currentPage + 1 < totalPages}" th:href="@{'/home?page=' + ${currentPage + 1}}">Next</a>
         </div>
     </div>
 
