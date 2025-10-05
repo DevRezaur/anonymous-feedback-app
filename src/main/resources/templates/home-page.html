@@ -2,15 +2,67 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/global.css}">
     <link rel="stylesheet" th:href="@{/css/navbar.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/home-page.css}">
+    <title>Home Page</title>
 </head>
 <body>
     <!-- Navbar -->
     <div th:replace="fragments/navbar.html :: navbar"></div>
 
+    <!-- Main Container -->
+    <div class="container main-container">
+        <!-- Search Section -->
+        <form th:action="@{/search}" method="post" id="search-form">
+            <label for="search-input" class="hidden"></label>
+            <input type="text" id="search-input" name="searchQuery" placeholder="Search By Teacher Name" required/>
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Posts Section -->
+        <div class="posts">
+            <div class="top-section">
+                <p class="name">Abu Bakar Siddik</p>
+                <p class="positive">Positive</p>
+            </div>
+            <div class="mid-section">
+                <p class="title">Really amazing teacher with amazing personality and teaching style. Highly recommended
+                    teacher.
+                </p>
+                <p class="desc">Mr. Abu Bakar Siddik is a knowledgeable and patient instructor. He explains complex
+                    topics clearly and ensures that everyone in the class understands the material. His classes are
+                    well-structured, though sometimes the pace can feel a bit fast. Overall, a very supportive and
+                    dedicated teacher who genuinely cares about his students’ learning.
+                </p>
+            </div>
+            <div class="bottom-section">
+                <a href="/">See Full Review</a>
+            </div>
+        </div>
+
+        <div class="posts">
+            <div class="top-section">
+                <p class="name">Abu Bakar Siddik</p>
+                <p class="positive">Positive</p>
+            </div>
+            <div class="mid-section">
+                <p class="title">Really amazing teacher with amazing personality and teaching style. Highly recommended
+                    teacher.
+                </p>
+                <p class="desc">Mr. Abu Bakar Siddik is a knowledgeable and patient instructor. He explains complex
+                    topics clearly and ensures that everyone in the class understands the material. His classes are
+                    well-structured, though sometimes the pace can feel a bit fast. Overall, a very supportive and
+                    dedicated teacher who genuinely cares about his students’ learning.
+                </p>
+            </div>
+            <div class="bottom-section">
+                <a href="/">See Full Review</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <div th:replace="fragments/footer.html :: footer"></div>

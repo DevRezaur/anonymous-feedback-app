@@ -1,0 +1,89 @@
+.main-container {
+    min-height: calc(100vh - 140px);
+}
+
+#search-form {
+    max-width: 800px;
+    display: flex;
+    gap: 10px;
+    margin: 40px auto;
+}
+
+#search-form input {
+    flex-grow: 1;
+    padding: 5px 10px;
+}
+
+#search-form button {
+    min-width: 50px;
+    background-color: #fc5c7d;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 2px;
+}
+
+#search-form button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.posts {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border-radius: 2px;
+}
+
+.posts .top-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.posts .top-section .name {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.posts .top-section .positive {
+    min-width: 75px;
+    text-align: center;
+    background-color: #62b076;
+    color: white;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.posts .top-section .negative {
+    min-width: 75px;
+    text-align: center;
+    background-color: #fc5c7d;
+    color: white;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.posts .mid-section .title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.posts .mid-section .desc {
+    line-height: 1.5rem;
+    letter-spacing: 0.05rem;
+    margin-bottom: 10px;
+}
+
+.posts .bottom-section a {
+    text-decoration: none;
+    color: #fc5c7d;
+    font-weight: 600;
+}
+
+.posts .bottom-section a:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
