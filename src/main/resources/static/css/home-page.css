@@ -29,8 +29,8 @@
 }
 
 .posts {
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 20px;
+    margin-bottom: 30px;
     background-color: #f5f5f5;
     border-radius: 2px;
 }
@@ -38,16 +38,19 @@
 .posts .top-section {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 3px solid white;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 5px solid white;
 }
 
 .posts .top-section .name {
+    flex-grow: 1;
     font-size: 18px;
-    font-weight: 600;
+}
+
+.posts .top-section .date {
+    font-size: 14px;
 }
 
 .posts .top-section .positive {
@@ -71,13 +74,13 @@
 .posts .mid-section .title {
     font-size: 20px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .posts .mid-section .desc {
     line-height: 1.5rem;
     letter-spacing: 0.05rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .posts .bottom-section a {

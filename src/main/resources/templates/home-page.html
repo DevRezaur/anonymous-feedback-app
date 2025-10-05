@@ -27,6 +27,7 @@
         <div th:each="feedback : ${feedbacks}" class="posts">
             <div class="top-section">
                 <p th:text="${feedback.feedbackFor}" class="name"></p>
+                <p th:text="${#temporals.format(feedback.createdAt, 'dd MMM yyyy')}" class="date"></p>
                 <p th:if="${feedback.isPositive}" class="positive">Positive</p>
                 <p th:if="${!feedback.isPositive}" class="negative">Negative</p>
             </div>
