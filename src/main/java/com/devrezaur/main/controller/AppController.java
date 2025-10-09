@@ -20,7 +20,7 @@ import java.util.UUID;
 @Controller
 public class AppController {
 
-    private final int PAGE_SIZE = 5;
+    private final int PAGE_SIZE = 3;
     private final FeedbackService feedbackService;
 
     @GetMapping({"/", "/home"})
