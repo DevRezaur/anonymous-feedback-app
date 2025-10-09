@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -29,6 +30,10 @@ public class FeedbackService {
         feedbacks.forEach(feedback -> feedback.setMessage(truncateMessage(feedback.getMessage())));
 
         return feedbacks;
+    }
+
+    public Feedback getFeedbackById(UUID feedbackId) {
+        return feedbackRepository.findById(feedbackId).orElse(null);
     }
 
     private String truncateMessage(String message) {

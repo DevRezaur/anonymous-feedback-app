@@ -44,7 +44,9 @@ public class AppController {
     }
 
     @GetMapping("/feedback/{feedbackId}")
-    public String feedbackDetail(@PathVariable UUID feedbackId) {
+    public String feedbackDetail(@PathVariable UUID feedbackId, Model model) {
+        Feedback feedback = feedbackService.getFeedbackById(feedbackId);
+        model.addAttribute("feedback", feedback);
         return "feedback-page";
     }
 }
