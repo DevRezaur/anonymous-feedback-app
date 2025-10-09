@@ -16,10 +16,26 @@ public class FeedbackService {
     private final FeedbackRepository feedbackRepository;
 
     public Page<Feedback> getFeedbacks(Pageable pageable) {
-        return feedbackRepository.findAll(pageable);
+        Page<Feedback> page = feedbackRepository.findAll(pageable);
+
+        return page.map(feedback -> {
+            feedback.setMessage(truncateMessage(feedback.getMessage()));
+            return feedback;
+        });
     }
 
     public List<Feedback> searchFeedbacksByName(String feedbackFor) {
-        return feedbackRepository.findByFeedbackForContainingIgnoreCase(feedbackFor);
+        List<Feedback> feedbacks = feedbackRepository.findByFeedbackForContainingIgnoreCase(feedbackFor);
+        feedbacks.forEach(feedback -> feedback.setMessage(truncateMessage(feedback.getMessage())));
+
+        return feedbacks;
+    }
+
+    private String truncateMessage(String message) {
+        if (message != null && message.length() > 200) {
+            return message.substring(0, 200) + " …";
+        } else {
+            return message;
+        }
     }
 }

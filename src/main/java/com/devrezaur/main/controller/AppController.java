@@ -1,7 +1,7 @@
 package com.devrezaur.main.controller;
 
 import com.devrezaur.main.model.Feedback;
-import com.devrezaur.main.repository.FeedbackRepository;
+import com.devrezaur.main.service.FeedbackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,12 +21,12 @@ import java.util.UUID;
 public class AppController {
 
     private final int PAGE_SIZE = 5;
-    private final FeedbackRepository feedbackRepository;
+    private final FeedbackService feedbackService;
 
     @GetMapping({"/", "/home"})
     public String homePage(@RequestParam(defaultValue = "0") int page, Model model) {
         Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("createdAt").descending());
-        Page<Feedback> feedbackPage = feedbackRepository.findAll(pageable);
+        Page<Feedback> feedbackPage = feedbackService.getFeedbacks(pageable);
 
         model.addAttribute("feedbacks", feedbackPage.getContent());
         model.addAttribute("totalPages", feedbackPage.getTotalPages());
@@ -37,7 +37,7 @@ public class AppController {
 
     @GetMapping("/search")
     public String searchFeedbacks(@RequestParam String searchQuery, Model model) {
-        List<Feedback> feedbacks = feedbackRepository.findByFeedbackForContainingIgnoreCase(searchQuery);
+        List<Feedback> feedbacks = feedbackService.searchFeedbacksByName(searchQuery);
         model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("searchQuery", searchQuery);
         return "home-page";
