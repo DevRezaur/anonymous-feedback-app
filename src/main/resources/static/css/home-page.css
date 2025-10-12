@@ -71,6 +71,19 @@
     border-radius: 20px;
 }
 
+.posts .top-section .delete {
+  padding: 2px 5px;
+  color: #fc5c7d;
+  border: 1px solid #fc5c7d;
+  border-radius: 2px;
+}
+
+.posts .top-section .delete:hover {
+  cursor: pointer;
+  background: #fc5c7d;
+  color: white;
+}
+
 .posts .mid-section .title {
     font-size: 20px;
     font-weight: 600;

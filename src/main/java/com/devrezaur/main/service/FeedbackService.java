@@ -36,6 +36,10 @@ public class FeedbackService {
         return feedbackRepository.findById(feedbackId).orElse(null);
     }
 
+    public void deleteFeedbackById(UUID feedbackId) {
+        feedbackRepository.deleteById(feedbackId);
+    }
+
     private String truncateMessage(String message) {
         if (message != null && message.length() > 200) {
             return message.substring(0, 200) + " …";
