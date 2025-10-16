@@ -47,6 +47,10 @@ public class FeedbackService {
         feedbackRepository.deleteById(feedbackId);
     }
 
+    public void saveFeedback(Feedback feedback) {
+        feedbackRepository.save(feedback);
+    }
+
     private String truncateMessage(String message) {
         if (message != null && message.length() > 200) {
             return message.substring(0, 200) + " …";

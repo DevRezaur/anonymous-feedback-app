@@ -3,6 +3,7 @@ package com.devrezaur.main.controller;
 import com.devrezaur.main.model.Feedback;
 import com.devrezaur.main.service.FeedbackService;
 import jakarta.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,5 +76,20 @@ public class AppController {
         List<Feedback> feedbacks = feedbackService.searchFeedbacksByUser(userName);
         model.addAttribute("feedbacks", feedbacks);
         return "user-dashboard-page";
+    }
+
+    @GetMapping("/feedback")
+    public String postPage() {
+        return "post-page";
+    }
+
+    @PostMapping("/feedback")
+    public String addFeedback(@ModelAttribute Feedback feedback, HttpServletRequest httpServletRequest) {
+        String username = httpServletRequest.getUserPrincipal().getName();
+        LocalDateTime currentTime = LocalDateTime.now();
+        feedback.setFeedbackBy(username);
+        feedback.setCreatedAt(currentTime);
+        feedbackService.saveFeedback(feedback);
+        return "redirect:/home";
     }
 }
