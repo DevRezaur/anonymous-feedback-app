@@ -22,6 +22,6 @@ public class Feedback {
     private String title;
     @Lob
     private String message;
-    private boolean isPositive;
+    private Boolean isPositive;
     private LocalDateTime createdAt;
 }

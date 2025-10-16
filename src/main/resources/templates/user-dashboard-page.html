@@ -24,7 +24,7 @@
         <p th:text="${#temporals.format(feedback.createdAt, 'dd MMM yyyy')}" class="date"></p>
         <p th:if="${feedback.isPositive}" class="positive">Positive</p>
         <p th:if="${!feedback.isPositive}" class="negative">Negative</p>
-        <form th:action="@{'/feedback/' + ${feedback.feedbackId} + '/edit'}" method="post">
+        <form th:action="@{'/feedback/' + ${feedback.feedbackId} + '/edit'}" method="get">
           <button type="submit" class="edit">
             Edit
           </button>

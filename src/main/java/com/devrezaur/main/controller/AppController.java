@@ -43,6 +43,14 @@ public class AppController {
         return "home-page";
     }
 
+    @GetMapping("/user-dashboard")
+    public String userDashboardPage(Model model, HttpServletRequest httpServletRequest) {
+        String userName = httpServletRequest.getUserPrincipal().getName();
+        List<Feedback> feedbacks = feedbackService.searchFeedbacksByUser(userName);
+        model.addAttribute("feedbacks", feedbacks);
+        return "user-dashboard-page";
+    }
+
     @GetMapping("/search")
     public String searchFeedbacks(@RequestParam String searchQuery, Model model) {
         List<Feedback> feedbacks = feedbackService.searchFeedbacksByName(searchQuery);
@@ -58,38 +66,45 @@ public class AppController {
         return "feedback-page";
     }
 
+    @GetMapping("/feedback")
+    public String addFeedbackPage(Model model) {
+        model.addAttribute("feedback", new Feedback());
+        model.addAttribute("mode", "add");
+        return "post-page";
+    }
+
+    @PostMapping("/feedback")
+    public String addFeedback(@ModelAttribute Feedback feedback, HttpServletRequest request) {
+        String username = request.getUserPrincipal().getName();
+        LocalDateTime currentTime = LocalDateTime.now();
+        feedback.setFeedbackBy(username);
+        feedback.setCreatedAt(currentTime);
+        feedbackService.saveFeedback(feedback);
+        return "redirect:/home";
+    }
+
+    @GetMapping("/feedback/{feedbackId}/edit")
+    public String editFeedbackPage(@PathVariable UUID feedbackId, Model model) {
+        Feedback feedback = feedbackService.getFeedbackById(feedbackId);
+        model.addAttribute("feedback", feedback);
+        model.addAttribute("mode", "edit");
+        return "post-page";
+    }
+
     @PostMapping("/feedback/{feedbackId}/edit")
-    public String editFeedback(@PathVariable UUID feedbackId) {
-        feedbackService.deleteFeedbackById(feedbackId);
-        return "redirect:/user-dashboard";
+    public String updateFeedback(@PathVariable UUID feedbackId, @ModelAttribute Feedback feedback, HttpServletRequest request) {
+        String username = request.getUserPrincipal().getName();
+        LocalDateTime currentTime = LocalDateTime.now();
+        feedback.setFeedbackBy(username);
+        feedback.setCreatedAt(currentTime);
+        feedback.setFeedbackId(feedbackId);
+        feedbackService.saveFeedback(feedback);
+        return "redirect:/home";
     }
 
     @PostMapping("/feedback/{feedbackId}/delete")
     public String deleteFeedback(@PathVariable UUID feedbackId) {
         feedbackService.deleteFeedbackById(feedbackId);
-        return "redirect:/home";
-    }
-
-    @GetMapping("/user-dashboard")
-    public String userDashboardPage(Model model, HttpServletRequest httpServletRequest) {
-        String userName = httpServletRequest.getUserPrincipal().getName();
-        List<Feedback> feedbacks = feedbackService.searchFeedbacksByUser(userName);
-        model.addAttribute("feedbacks", feedbacks);
-        return "user-dashboard-page";
-    }
-
-    @GetMapping("/feedback")
-    public String postPage() {
-        return "post-page";
-    }
-
-    @PostMapping("/feedback")
-    public String addFeedback(@ModelAttribute Feedback feedback, HttpServletRequest httpServletRequest) {
-        String username = httpServletRequest.getUserPrincipal().getName();
-        LocalDateTime currentTime = LocalDateTime.now();
-        feedback.setFeedbackBy(username);
-        feedback.setCreatedAt(currentTime);
-        feedbackService.saveFeedback(feedback);
         return "redirect:/home";
     }
 }

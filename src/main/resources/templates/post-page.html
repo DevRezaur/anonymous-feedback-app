@@ -10,7 +10,6 @@
   <link rel="stylesheet" th:href="@{/css/post-page.css}">
   <title>Post Page</title>
 </head>
-
 <body>
   <!-- Navbar -->
   <div th:replace="fragments/navbar.html :: navbar"></div>
@@ -19,28 +18,29 @@
   <div class="main-container container">
     <h1>Share A Feedback</h1>
 
-    <form th:action="@{/feedback}" method="POST" id="feedback-form">
+    <form th:object="${feedback}" th:action="@{${mode} == 'edit' ? '/feedback/' + ${feedback.feedbackId} + '/edit' : '/feedback'}"
+          method="post" id="feedback-form">
       <label for="feedbackFor">Feedback For</label>
-      <input type="text" name="feedbackFor" id="feedbackFor" required>
+      <input type="text" th:field="*{feedbackFor}" id="feedbackFor" required>
 
       <label for="title">Title</label>
-      <input type="text" name="title" id="title" required>
+      <input type="text" th:field="*{title}" id="title" required>
 
       <label>Is this feedback positive?</label>
       <div id="radio-btn">
-        <label><input type="radio" name="isPositive" value="true" required>&nbsp;Positive</label>
-        <label><input type="radio" name="isPositive" value="false" required>&nbsp;Negative</label>
+        <label><input type="radio" th:field="*{isPositive}" th:value="true" required />&nbsp;Positive</label>
+        <label><input type="radio" th:field="*{isPositive}" th:value="false" required />&nbsp;Negative</label>
       </div>
 
       <label for="message">Feedback / Message</label>
-      <textarea name="message" id="message" rows="8" required></textarea>
+      <textarea th:field="*{message}" id="message" rows="8" required></textarea>
 
-      <button type="submit">Submit</button>
+      <input type="hidden" th:if="${mode} == 'edit'" th:field="*{feedbackId}" />
+      <button type="submit" th:text="${mode} == 'edit' ? 'Update' : 'Submit'"></button>
     </form>
   </div>
 
   <!-- Footer -->
   <div th:replace="fragments/footer.html :: footer"></div>
 </body>
-
 </html>
