@@ -32,6 +32,13 @@ public class FeedbackService {
         return feedbacks;
     }
 
+    public List<Feedback> searchFeedbacksByUser(String feedbackBy) {
+        List<Feedback> feedbacks = feedbackRepository.findByFeedbackBy(feedbackBy);
+        feedbacks.forEach(feedback -> feedback.setMessage(truncateMessage(feedback.getMessage())));
+
+        return feedbacks;
+    }
+
     public Feedback getFeedbackById(UUID feedbackId) {
         return feedbackRepository.findById(feedbackId).orElse(null);
     }

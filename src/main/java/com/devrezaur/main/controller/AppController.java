@@ -50,15 +50,29 @@ public class AppController {
     }
 
     @GetMapping("/feedback/{feedbackId}")
-    public String feedbackDetail(@PathVariable UUID feedbackId, Model model) {
+    public String feedbackDetailPage(@PathVariable UUID feedbackId, Model model) {
         Feedback feedback = feedbackService.getFeedbackById(feedbackId);
         model.addAttribute("feedback", feedback);
         return "feedback-page";
+    }
+
+    @PostMapping("/feedback/{feedbackId}/edit")
+    public String editFeedback(@PathVariable UUID feedbackId) {
+        feedbackService.deleteFeedbackById(feedbackId);
+        return "redirect:/user-dashboard";
     }
 
     @PostMapping("/feedback/{feedbackId}/delete")
     public String deleteFeedback(@PathVariable UUID feedbackId) {
         feedbackService.deleteFeedbackById(feedbackId);
         return "redirect:/home";
+    }
+
+    @GetMapping("/user-dashboard")
+    public String userDashboardPage(Model model, HttpServletRequest httpServletRequest) {
+        String userName = httpServletRequest.getUserPrincipal().getName();
+        List<Feedback> feedbacks = feedbackService.searchFeedbacksByUser(userName);
+        model.addAttribute("feedbacks", feedbacks);
+        return "user-dashboard-page";
     }
 }

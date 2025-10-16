@@ -10,4 +10,5 @@ import java.util.UUID;
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, UUID> {
     List<Feedback> findByFeedbackForContainingIgnoreCase(String feedbackFor);
+    List<Feedback> findByFeedbackBy(String feedbackBy);
 }
